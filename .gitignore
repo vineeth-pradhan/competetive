@@ -1,0 +1,14 @@
+*.DS_Store
+*.sw*
+*.metadata/
+*.recommenders/
+.idea/
+**/*/.idea/
+out/
+**/*/out/
+**/*/*.iml
+**/.class
+**/.classpath
+**/.project
+**/.settings
+**/bin
