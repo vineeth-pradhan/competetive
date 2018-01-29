@@ -30,26 +30,27 @@ import java.util.Scanner;
 public class Problem915E {
 	public static void main(String[] args) {
 		Scanner sentences = new Scanner (System.in);
-		int daysRemaining = Integer.parseInt(sentences.nextLine());
-		int noOfIntimations = Integer.parseInt(sentences.nextLine());
+		int daysRemaining = sentences.nextInt();
+		int noOfIntimations = sentences.nextInt();
 		int[] output = new int[noOfIntimations+1];
 		int[] wd = new int[daysRemaining+1];
 		int totalWD = daysRemaining;
-		String[] intimations = new String[noOfIntimations+1];
 		// Mark all days as WD by default
 		for(int i = 1; i <= daysRemaining; i++) {
 			wd[i] = 1;
 		}
 		for(int i = 1; i <= noOfIntimations; i++) {
-			intimations[i] = sentences.nextLine();
+			int[] intimations = new int[3];
+			intimations[0] = sentences.nextInt();
+			intimations[1] = sentences.nextInt();
+			intimations[2] = sentences.nextInt();
 			// intimation = {0: startDay, 1: endDay, 2: wd/nwd}
-			String[] intimation = intimations[i].split(" ");
-			for(int j = Integer.parseInt(intimation[0]); j <= Integer.parseInt(intimation[1]); j++) {
-				if(Integer.parseInt(intimation[2]) == 2 && wd[j] == 0) {
+			for(int j = intimations[0]; j <= intimations[1]; j++) {
+				if(intimations[2] == 2 && wd[j] == 0) {
 					wd[j] = 1;
 					totalWD += 1;
 				}
-				else if(Integer.parseInt(intimation[2]) == 1 && wd[j] == 1) {
+				else if(intimations[2] == 1 && wd[j] == 1) {
 					wd[j] = 0;
 					totalWD -= 1;
 				}
