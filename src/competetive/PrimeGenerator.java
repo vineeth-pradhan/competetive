@@ -1,9 +1,22 @@
+/**
+ * http://www.spoj.com/problems/PRIME1/
+ */
 package competetive;
 import java.util.Scanner;
 import java.util.List;
 import java.util.ArrayList;
 
 class PrimeGenerator {
+	static boolean isPrime(int num) {
+		if(num == 1 || num == 0) return false;
+		for(int i = 2; i*i <= num; i++) {
+			if(num % i == 0) {
+				return false;
+			}
+		}
+		return true;
+	}
+
 	public static void main(String[] args) {
 		Scanner reader = new Scanner(System.in);
 		int noOfTests = reader.nextInt();
@@ -11,14 +24,10 @@ class PrimeGenerator {
 		while(noOfTests != 0) {
 			int start = reader.nextInt();
 			int end = reader.nextInt();
-			for(Integer j = start; j <= end; j++) {
-				boolean flag = true;
-				if(j == 2) { results.add((String) j.toString()); continue;}
-				if(j % 2 == 0 || j == 1) { continue; }
-				for(int k = 3; k <= j/2; k++) {
-					if (j != k && j % k == 0) { flag = false; break; }
+			for(Integer i = start; i <= end; i++) {
+				if(isPrime(i)) {
+					results.add((String) i.toString());
 				}
-				if(flag == true) { results.add((String) j.toString()); }
 			}
 			results.add("");
 			noOfTests--;
