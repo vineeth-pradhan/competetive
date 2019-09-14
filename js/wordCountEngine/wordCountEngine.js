@@ -28,10 +28,11 @@ function wordCountEngine(document) {
   var currentWord = "";
   dict = {};
   var wordArray = [];
-  for(let i = 0; i < document.length; i++){
-    let currentChar = document[i];
-    if(currentChar === document[i-1] === /[\s]/) { continue; }
-    [dict, currentChar, currentWord] = scanSentence(currentChar, currentWord.toLowerCase(), document, dict, i);
+  var words = document.split(/[\s]+/);
+  for(let i = 0; i < words.length; i++){
+    if(!words[i]) { continue; }
+    let currentWord = words[i];
+    maintainDictionary(currentWord.toLowerCase().replace(/[^\w]+/, ''), i);
   }
   for(key in dict) {  wordArray.push([key, dict[key]['count'].toString()]); }
   return wordArray.sort(compare);
@@ -46,22 +47,9 @@ function compare(a,b) {
   }
 }
 
-function scanSentence(currentChar, currentWord, document, dict, index) {
-  if(currentChar.match(/[\s]/)) {
-    [dict, currentWord] = maintainDictionary(dict, currentWord, index);
-  }
-  else if(currentChar.match(/[\w]/)) { currentWord = currentWord.concat(currentChar); }
-  else if(document.length - 1 === index) {
-    [dict, currentWord] = maintainDictionary(dict, currentWord, index);
-  }
-  return [dict, currentChar, currentWord];
-}
-
-function maintainDictionary(dict, currentWord, index) {
+function maintainDictionary(currentWord, index) {
   if(dict.hasOwnProperty(currentWord)){ dict[currentWord]['count'] = ++dict[currentWord]['count']; }
   else { dict[currentWord] = { count: 1, index: index }; }
-
-  return [dict,""];
 }
 
-console.log(wordCountEngine("Cause I'm Slim Shady, yes I'm the real Shady, All you other Slim Shadys are just imitating So won't the real Slim Shady, please stand up, Please stand up, Please stand up"));
+console.log(wordCountEngine("Cause I'm Slim Shady, yes I'm the real Shady, All you other Slim Shadys are just imitating So won't the real Slim Shady, please stand up, Please stand up, Please stand up   "));
