@@ -24,7 +24,7 @@ Output:
 Verdict:
 Time limit exceeded on test 4
  */
-package competetive;
+package sample.problem915E;
 import java.util.Scanner;
 
 public class Problem915E {

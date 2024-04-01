@@ -1,4 +1,4 @@
-package competetive.TwoSum;
+package sample.TwoSum;
 import java.util.HashMap;
 
 class TwoSum {
