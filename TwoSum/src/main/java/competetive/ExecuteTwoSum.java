@@ -1,4 +1,4 @@
-package sample.TwoSum;
+package competetive;
 import java.util.Arrays;
 
 class ExecuteTwoSum {

@@ -11,4 +11,6 @@ plugins {
 }
 
 rootProject.name = "competetive-java"
-include("app")
+include("TwoSum")
+// // include("Problem915E")
+// include("PrimeGenerator")

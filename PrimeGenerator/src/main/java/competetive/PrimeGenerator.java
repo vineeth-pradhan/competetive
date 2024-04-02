@@ -1,7 +1,7 @@
 /**
  * http://www.spoj.com/problems/PRIME1/
  */
-package sample.PrimeGenerator;
+package competetive;
 import java.util.Scanner;
 import java.util.List;
 import java.util.ArrayList;
