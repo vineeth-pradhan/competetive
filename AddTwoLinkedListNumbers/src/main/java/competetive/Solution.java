@@ -5,8 +5,8 @@ import java.util.Arrays;
 
 class Solution {
   public static void main(String[] args) {
-    LinkedList l1 = new LinkedList(new int[] { 2,9,1,9,9,9 });
-    LinkedList l2 = new LinkedList(new int[] { 1,3,8});
+    LinkedList l1 = new LinkedList(new int[] { 8 });
+    LinkedList l2 = new LinkedList(new int[] { 1,9,9,9,9,9 });
 
     l1.printList();
     l2.printList();
@@ -37,6 +37,10 @@ class Solution {
       currentNode = currentNode.next;
       currentNode.val = (l1.val + carryOver) % 10;
       carryOver = (l1.val + carryOver) / 10;
+      if(carryOver == 0 && l1.next != null){
+        currentNode.next = l1.next;
+        break;
+      }
       l1 = l1.next;
     }
     while(l2 != null && l1 == null) {
@@ -44,8 +48,13 @@ class Solution {
       currentNode = currentNode.next;
       currentNode.val = (l2.val + carryOver) % 10;
       carryOver = (l2.val + carryOver) / 10;
+      if(carryOver == 0 && l2.next != null){
+        currentNode.next = l2.next;
+        break;
+      }
       l2 = l2.next;
     }
+    if(carryOver != 0){ currentNode.next = new ListNode(carryOver); }
 
     return l3.next;
   }
