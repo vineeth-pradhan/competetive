@@ -1,12 +1,11 @@
 package competetive;
 import competetive.LinkedList;
 import competetive.ListNode;
-import java.util.Arrays;
 
 class Solution {
   public static void main(String[] args) {
-    LinkedList l1 = new LinkedList(new int[] { 1,2,5 });
-    LinkedList l2 = new LinkedList(new int[] { 3,4,5 });
+    LinkedList l1 = new LinkedList(new int[] { 1,1,1 });
+    LinkedList l2 = new LinkedList(new int[] { 9,9 });
 
     l1.printList();
     l2.printList();
@@ -28,7 +27,9 @@ class Solution {
         if(l1 != null && l2 != null) {
           currentNode.next = new ListNode();
           currentNode = currentNode.next;
+          continue;
         }
+        else if(carryOver != 0){ currentNode.next = new ListNode(carryOver); }
       }
       else if(l1 != null && l2 == null) {
         currentNode.next = new ListNode();
@@ -39,6 +40,7 @@ class Solution {
           currentNode.next = l1.next;
           break;
         }
+        else if(carryOver != 0 && l1.next == null){ currentNode.next = new ListNode(carryOver); }
         l1 = l1.next;
       }
       else if(l2 != null && l1 == null) {
@@ -50,9 +52,9 @@ class Solution {
           currentNode.next = l2.next;
           break;
         }
+        else if(carryOver != 0 && l2.next == null){ currentNode.next = new ListNode(carryOver); }
         l2 = l2.next;
       }
-      if(carryOver != 0){ currentNode.next = new ListNode(carryOver); }
     }
     return l3.next;
   }
