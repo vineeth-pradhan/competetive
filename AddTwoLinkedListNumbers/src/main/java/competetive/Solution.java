@@ -5,8 +5,8 @@ import java.util.Arrays;
 
 class Solution {
   public static void main(String[] args) {
-    LinkedList l1 = new LinkedList(new int[] { 8 });
-    LinkedList l2 = new LinkedList(new int[] { 1,9,9,9,9,9 });
+    LinkedList l1 = new LinkedList(new int[] { 1,2,5 });
+    LinkedList l2 = new LinkedList(new int[] { 3,4,5 });
 
     l1.printList();
     l2.printList();
@@ -19,43 +19,41 @@ class Solution {
     ListNode currentNode = new ListNode();
     ListNode l3 = new ListNode(0, currentNode);
     int carryOver = 0;
-    while(l1 != null && l2 != null) {
-      currentNode.val = (l1.val + l2.val + carryOver) % 10;
-      carryOver = (l1.val + l2.val + carryOver) / 10;
-      l1 = l1.next;
-      l2 = l2.next;
+    while(l1 != null || l2 != null) {
       if(l1 != null && l2 != null){
+        currentNode.val = (l1.val + l2.val + carryOver) % 10;
+        carryOver = (l1.val + l2.val + carryOver) / 10;
+        l1 = l1.next;
+        l2 = l2.next;
+        if(l1 != null && l2 != null) {
+          currentNode.next = new ListNode();
+          currentNode = currentNode.next;
+        }
+      }
+      else if(l1 != null && l2 == null) {
         currentNode.next = new ListNode();
         currentNode = currentNode.next;
+        currentNode.val = (l1.val + carryOver) % 10;
+        carryOver = (l1.val + carryOver) / 10;
+        if(carryOver == 0 && l1.next != null){
+          currentNode.next = l1.next;
+          break;
+        }
+        l1 = l1.next;
       }
-      else if(l1 == null && l2 == null && carryOver != 0) {
-        currentNode.next = new ListNode(carryOver);
+      else if(l2 != null && l1 == null) {
+        currentNode.next = new ListNode();
+        currentNode = currentNode.next;
+        currentNode.val = (l2.val + carryOver) % 10;
+        carryOver = (l2.val + carryOver) / 10;
+        if(carryOver == 0 && l2.next != null){
+          currentNode.next = l2.next;
+          break;
+        }
+        l2 = l2.next;
       }
+      if(carryOver != 0){ currentNode.next = new ListNode(carryOver); }
     }
-    while(l1 != null && l2 == null) {
-      currentNode.next = new ListNode();
-      currentNode = currentNode.next;
-      currentNode.val = (l1.val + carryOver) % 10;
-      carryOver = (l1.val + carryOver) / 10;
-      if(carryOver == 0 && l1.next != null){
-        currentNode.next = l1.next;
-        break;
-      }
-      l1 = l1.next;
-    }
-    while(l2 != null && l1 == null) {
-      currentNode.next = new ListNode();
-      currentNode = currentNode.next;
-      currentNode.val = (l2.val + carryOver) % 10;
-      carryOver = (l2.val + carryOver) / 10;
-      if(carryOver == 0 && l2.next != null){
-        currentNode.next = l2.next;
-        break;
-      }
-      l2 = l2.next;
-    }
-    if(carryOver != 0){ currentNode.next = new ListNode(carryOver); }
-
     return l3.next;
   }
 }
