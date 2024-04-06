@@ -3,12 +3,24 @@ import java.util.TreeMap;
 
 class Solution {
   private TreeMap<Integer, String> rMap = new TreeMap<Integer, String>();
+  private TreeMap<Integer, Integer> allowedApproximators = new TreeMap<Integer, Integer>();
   private String romanNotation = "";
-  private int[][] multipliers = new int[][] {{1,0},{5,1},{10,1},{50,10},{100,10},{500,100},{1000,100}};
-  private int currentKey = 6;
+  private int remainingNum;
+  private int targetNum;
 
   Solution(){
     this.constructRMap();
+    this.constructallowedApproximators();
+  }
+
+  private void constructallowedApproximators(){
+    this.allowedApproximators.put(1,0);
+    this.allowedApproximators.put(5,1);
+    this.allowedApproximators.put(10,1);
+    this.allowedApproximators.put(50,10);
+    this.allowedApproximators.put(100,10);
+    this.allowedApproximators.put(500,100);
+    this.allowedApproximators.put(1000,100);
   }
 
   private void constructRMap(){
@@ -22,23 +34,9 @@ class Solution {
   }
 
   public String intToRoman(int num) {
-    if(this.rMap.containsKey(num)){
-      this.romanNotation += rMap.get(num);
-    }
-    else if(this.rMap.containsKey(num+this.multipliers[this.currentKey][1])){
-      this.romanNotation += rMap.get(this.multipliers[this.currentKey][1]);
-      this.romanNotation += rMap.get(this.multipliers[this.currentKey][0]);
-    }
-    else if(this.rMap.containsKey(num-this.multipliers[this.currentKey][1])){
-      this.romanNotation += rMap.get(this.multipliers[this.currentKey][0]);
-      this.romanNotation += rMap.get(this.multipliers[this.currentKey][1]);
-    }
-    else if(this.rMap.containsKey((num/this.multipliers[this.currentKey][1])*this.multipliers[this.currentKey][1] + this.multipliers[this.currentKey][1])){
-      this.romanNotation += rMap.get(this.multipliers[this.currentKey][1]);
-      this.romanNotation += rMap.get(this.multipliers[this.currentKey][0]);
-      if(num%this.multipliers[this.currentKey][1] != 0){
-        currentKey -= 1;
-        intToRoman(num%this.multipliers[this.currentKey][1]);
+    if(num < 1000){
+      if(rMap.containsKey(num)){
+        this.romanNotation += rMap.get(num);
       }
     }
     return this.romanNotation;
@@ -46,7 +44,7 @@ class Solution {
 
   public static void main(String[] args){
     Solution sol = new Solution();
-    int num = 980;
+    int num = 2;
     System.out.println(sol.intToRoman(num));
   }
 }
