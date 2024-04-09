@@ -5,8 +5,8 @@ class Solution {
   private TreeMap<Integer, String> rMap = new TreeMap<Integer, String>();
   private TreeMap<Integer, Integer> allowedApproximators = new TreeMap<Integer, Integer>();
   private String romanNotation = "";
-  private int targetNum;
   private int currentKey = 0;
+  private int remainingTarget = 0;
 
   Solution(){
     this.constructRMap();
@@ -36,7 +36,6 @@ class Solution {
   public String intToRoman(int num) {
     this.currentKey = this.getCurrentKey(num);
     if(hasNativeKey(num)) {
-      System.out.println("HERE");
       int repeat = num / this.currentKey;
       for(int i = 0; i < repeat; i++){
         this.romanNotation += rMap.get(this.currentKey);
@@ -47,57 +46,41 @@ class Solution {
       for(int i = 0; i < repeat; i++){
         this.romanNotation += rMap.get(this.currentKey);
       }
-      int remainingTarget = num % 1000;
+      remainingTarget = num % 1000;
       if(remainingTarget != 0){
         intToRoman(remainingTarget);
       }
     }
     else if(this.hasYoungerSiblingKey(this.getRoundOffTarget(num))){
       // 900 || 400 || 40 | 4
-      System.out.println("HERE1");
-      System.out.println(this.currentKey);
-      // System.out.println(this.getRoundOffTarget(num));
-      // System.out.println(this.hasYoungerSiblingKey(this.getRoundOffTarget(num)));
       this.romanNotation += this.rMap.get(this.allowedApproximators.get(this.currentKey));
       this.romanNotation += this.rMap.get(this.currentKey);
-      int remainingTarget = this.getRemainingTarget(num, this.getRoundOffTarget(num));
-      System.out.println("remainingTarget");
-      System.out.println(remainingTarget);
+      remainingTarget = this.getRemainingTarget(num, this.getRoundOffTarget(num));
       if(remainingTarget != 0){
         intToRoman(remainingTarget);
       }
     }
     else if(this.hasElderSiblingKey(this.getRoundOffTarget(num))){
-      System.out.println("HERE5");
       // 1100
-      System.out.println("num");
-      System.out.println(num);
       this.romanNotation += this.rMap.get(this.currentKey);
       this.romanNotation += this.rMap.get(this.allowedApproximators.get(this.currentKey));
-      int remainingTarget = this.getRemainingTarget(num, this.getRoundOffTarget(num));
-      System.out.println("remainingTarget");
-      System.out.println(remainingTarget);
+      remainingTarget = this.getRemainingTarget(num, this.getRoundOffTarget(num));
       if(remainingTarget != 0){
         intToRoman(remainingTarget);
       }
     }
     else if(this.hasCousinKey(this.getRoundOffTarget(num))){
       // 700 || 800 || 70 || 80 || 7 || 8
-      // -> V
-      System.out.println("HERE4");
-      System.out.println("this.currentKey");
-      System.out.println(this.currentKey);
       this.romanNotation += rMap.get(this.currentKey);
-      System.out.println("num");
-      System.out.println(num);
-      System.out.println("this.getRoundOffTarget(num)");
-      System.out.println(this.getRoundOffTarget(num));
-      int remainingTarget = this.getRemainingTarget(num, this.currentKey);
-      System.out.println("remainingTarget");
-      System.out.println(remainingTarget);
+      remainingTarget = this.getRemainingTarget(num, this.currentKey);
       if(remainingTarget != 0){
         intToRoman(remainingTarget);
       }
+    }
+    else if((remainingTarget = this.getRemainingTarget(num, this.currentKey)) != 0){
+      // 19 || 29 || 39. Anything less than 50
+      this.romanNotation += this.rMap.get(this.currentKey);
+      intToRoman(remainingTarget);
     }
     return this.romanNotation;
   }
@@ -141,6 +124,9 @@ class Solution {
       if(num >= 1000){
         returnValue = num / 1000 * 1000;
       }
+      else if(num == 4 || num == 9){
+        returnValue = num;
+      }
       else if(num < 1000 && num > 100){
         returnValue = num / 100 * 100;
       }
@@ -168,8 +154,6 @@ class Solution {
 
   // 900
   public boolean hasYoungerSiblingKey(int roundedOffNumber){
-    System.out.println("roundedOffNumber");
-    System.out.println(roundedOffNumber);
     if(roundedOffNumber != 0 && rMap.containsKey(roundedOffNumber+allowedApproximators.get(this.currentKey))){ return true; }
     else { return false; }
   }
@@ -186,7 +170,7 @@ class Solution {
 
   public static void main(String[] args){
     Solution sol = new Solution();
-    int num = 4;
+    int num = 921;
     System.out.println(sol.intToRoman(num));
   }
 }
