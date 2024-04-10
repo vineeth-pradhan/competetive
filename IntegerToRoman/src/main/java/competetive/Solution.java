@@ -60,32 +60,14 @@ class Solution {
         intToRoman(remainingTarget);
       }
     }
-    else if(this.hasElderSiblingKey(this.getRoundOffTarget(num))){
-      // 1100
-      this.romanNotation += this.rMap.get(this.currentKey);
-      this.romanNotation += this.rMap.get(this.allowedApproximators.get(this.currentKey));
-      remainingTarget = this.getRemainingTarget(num, this.getRoundOffTarget(num));
-      if(remainingTarget != 0){
-        intToRoman(remainingTarget);
-      }
-    }
-    else if(this.hasCousinKey(this.getRoundOffTarget(num))){
-      // 700 || 800 || 70 || 80 || 7 || 8
-      this.romanNotation += rMap.get(this.currentKey);
-      remainingTarget = this.getRemainingTarget(num, this.currentKey);
-      if(remainingTarget != 0){
-        intToRoman(remainingTarget);
-      }
-    }
     else if((remainingTarget = this.getRemainingTarget(num, this.currentKey)) != 0){
-      // 19 || 29 || 39. Anything less than 50
       this.romanNotation += this.rMap.get(this.currentKey);
       intToRoman(remainingTarget);
     }
     return this.romanNotation;
   }
 
-  public int getCurrentKey(int remainingTarget){
+  private int getCurrentKey(int remainingTarget){
     int returnValue = 0;
     if(remainingTarget >= 900){
       returnValue = 1000;
@@ -111,11 +93,11 @@ class Solution {
     return returnValue;
   }
 
-  public int getRemainingTarget(int num, int roundOffTarget){
+  private int getRemainingTarget(int num, int roundOffTarget){
     return num - roundOffTarget;
   }
 
-  public int getRoundOffTarget(int num){
+  private int getRoundOffTarget(int num){
     int returnValue = 0;
     if(num % this.currentKey == 0){
       returnValue = num;
@@ -144,7 +126,7 @@ class Solution {
     return returnValue;
   }
 
-  public boolean hasNativeKey(int num){
+  private boolean hasNativeKey(int num){
     if(num/this.currentKey != 0 && num % this.currentKey == 0) {
       return true;
     } else {
@@ -152,25 +134,14 @@ class Solution {
     }
   }
 
-  // 900
-  public boolean hasYoungerSiblingKey(int roundedOffNumber){
+  private boolean hasYoungerSiblingKey(int roundedOffNumber){
     if(roundedOffNumber != 0 && rMap.containsKey(roundedOffNumber+allowedApproximators.get(this.currentKey))){ return true; }
     else { return false; }
   }
 
-  // 1100
-  public boolean hasElderSiblingKey(int roundedOffNumber){
-    if(roundedOffNumber != 0 && rMap.containsKey(roundedOffNumber-allowedApproximators.get(this.currentKey))){ return true; }
-    else { return false; }
-  }
-
-  public boolean hasCousinKey(int num){
-    if(num/this.currentKey == 1){ return true; } else { return false; }
-  }
-
   public static void main(String[] args){
     Solution sol = new Solution();
-    int num = 921;
+    int num = 350;
     System.out.println(sol.intToRoman(num));
   }
 }
