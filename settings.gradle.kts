@@ -7,9 +7,17 @@
 
 plugins {
     // Apply the foojay-resolver plugin to allow automatic download of JDKs
-    id("org.gradle.toolchains.foojay-resolver-convention") version "0.8.0"
+    id("org.gradle.toolchains.foojay-resolver-convention") version "0.8.0";
+    id("com.gradle.develocity") version "3.17.1"
+
 }
 
+develocity {
+    buildScan {
+        termsOfUseUrl = "https://gradle.com/help/legal-terms-of-use"
+        termsOfUseAgree = "yes"
+    }
+}
 rootProject.name = "competetive-java"
 include("TwoSum")
 // // include("Problem915E")
