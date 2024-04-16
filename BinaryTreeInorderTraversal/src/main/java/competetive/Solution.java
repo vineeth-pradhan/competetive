@@ -8,7 +8,6 @@ package competetive;
 import java.util.LinkedList;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Arrays;
 
 class Solution {
   private TreeNode head = new TreeNode();
@@ -17,43 +16,44 @@ class Solution {
 
   public static void main(String[] args){
     Solution sol = new Solution();
-    Object[] rawData = new Object[] { 1, null, 2, 3 };
-    // Object[] rawData = new Objec {  0  1   2  3  4   5   6 }
-    // i = 0; rawData[i] = 10; 2i+1=1; 2i+2=2
-    // i = 1; rawData[i] = 4; 2i+1=3; 2i+2=4
-    // i = 2; rawData[i] = 17; 2i+1=5; 2i+2=6
-    // 1. Queue = { 10 }
-    // 2. Queue = { 4, 17 }
-    // 3. Queue = { 17, 1, 5 }
-    // 4. Queue = { 1, 5, 16, 21 }
-    // 5. Queue = { 5, 16, 21 }
-    // 6. Queue = { 16, 21 }
-    // 7. Queue = { 21 }
-    // 7. Queue = {}
-    // TreeNode node = new TreeNode(1, new TreeNode(1, new TreeNode(3)), new TreeNode(2));
-    // System.out.println(Arrays.toString(rawData));
+    // Object[] rawData = new Object[] {};
+    // Object[] rawData = new Object[] {1};
+    Object[] rawData = new Object[] { 1, null, 2, 3 }; // Degenerate binary tree
+    // Object[] rawData = new Object[] { 3,0,2,5,6,7,8,null,null,9,10 }; // Degenerate binary tree
+    // Object[] rawData = new Object[] { 10,4,17,1,5,16,21 }; // Full binary
+    // Object[] rawData = new Object[] { 10,8,null,6,null,4,null }; // left-skewed binary tree
+    // Object[] rawData = new Object[] { 10,null,8,null,6,null,4 }; // right-skewed binary tree
     if(rawData.length > 0){
       sol.head.left = new TreeNode();
       sol.queue.add(sol.head.left);
       sol.constructTree(rawData, 0);
       System.out.println(sol.inorderTraversal(sol.head.left));
     }
+    else{
+      sol.head.left = null;
+      System.out.println(sol.inorderTraversal(sol.head.left));
+    }
   }
 
   private void constructTree(Object[] rawData, int i){
+    int x = 0;
     while(i < rawData.length){
       if(rawData[i] != null){
         TreeNode node = queue.remove();
         node.val = (Integer) rawData[i];
-        if(2*i+1 < rawData.length){
+        if(2*i+1-x < rawData.length && rawData[2*i+1-x] != null){
           node.left = new TreeNode();
           queue.add(node.left);
         }
-        if(2*i+2 < rawData.length){
+        else if(2*i+1-x < rawData.length && rawData[2*i+1-x] == null){ node.left = null; }
+
+        if(2*i+2-x < rawData.length && rawData[2*i+2-x] != null){
           node.right = new TreeNode();
           queue.add(node.right);
         }
+        else if(2*i+2-x < rawData.length && rawData[2*i+2-x] == null){ node.right = null; }
       }
+      else{ x += 2; }
       i++;
     }
   }
@@ -62,8 +62,6 @@ class Solution {
     if(root != null){
       inorderTraversal(root.left);
       this.list.add(root.val);
-      // System.out.println("root.val");
-      // System.out.println(root.val);
       inorderTraversal(root.right);
     }
     return list;
