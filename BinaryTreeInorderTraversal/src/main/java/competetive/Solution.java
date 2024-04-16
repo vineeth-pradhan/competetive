@@ -39,7 +39,7 @@ class Solution {
     finally { System.out.println("Finished"); }
   }
 
-  private void constructTree(LinkedList<TreeNode> queue, Object[] rawData){
+  public void constructTree(LinkedList<TreeNode> queue, Object[] rawData){
     int x = 0, i = 0;
     while(i < rawData.length){
       if(rawData[i] != null){
