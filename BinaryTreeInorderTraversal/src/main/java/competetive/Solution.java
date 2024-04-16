@@ -12,7 +12,7 @@ import java.util.List;
 class Solution {
   List<Integer> list = new ArrayList<Integer>();
 
-  public static void main(String[] args){
+  public static void main(String[] args) throws Exception{
     TreeNode head = new TreeNode();
     Solution sol = new Solution();
     LinkedList<TreeNode> queue = new LinkedList<TreeNode>();
@@ -23,16 +23,20 @@ class Solution {
     // Object[] rawData = new Object[] { 10,4,17,1,5,16,21 }; // Full binary
     // Object[] rawData = new Object[] { 10,8,null,6,null,4,null }; // left-skewed binary tree
     // Object[] rawData = new Object[] { 10,null,8,null,6,null,4 }; // right-skewed binary tree
-    if(rawData.length > 0){
-      head.left = new TreeNode();
-      queue.add(head.left);
-      sol.constructTree(queue, rawData);
-      System.out.println(sol.inorderTraversal(head.left));
+    try {
+      if(rawData.length > 0){
+        head.left = new TreeNode();
+        queue.add(head.left);
+        sol.constructTree(queue, rawData);
+        System.out.println(sol.inorderTraversal(head.left));
+      }
+      else{
+        head.left = null;
+        System.out.println(sol.inorderTraversal(head.left));
+      }
     }
-    else{
-      head.left = null;
-      System.out.println(sol.inorderTraversal(head.left));
-    }
+    catch(Exception e) { }
+    finally { System.out.println("Finished"); }
   }
 
   private void constructTree(LinkedList<TreeNode> queue, Object[] rawData){
