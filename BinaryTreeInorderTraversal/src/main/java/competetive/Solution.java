@@ -10,12 +10,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 class Solution {
-  private TreeNode head = new TreeNode();
   List<Integer> list = new ArrayList<Integer>();
-  LinkedList<TreeNode> queue = new LinkedList<TreeNode>();
 
   public static void main(String[] args){
+    TreeNode head = new TreeNode();
     Solution sol = new Solution();
+    LinkedList<TreeNode> queue = new LinkedList<TreeNode>();
     // Object[] rawData = new Object[] {};
     // Object[] rawData = new Object[] {1};
     Object[] rawData = new Object[] { 1, null, 2, 3 }; // Degenerate binary tree
@@ -24,19 +24,19 @@ class Solution {
     // Object[] rawData = new Object[] { 10,8,null,6,null,4,null }; // left-skewed binary tree
     // Object[] rawData = new Object[] { 10,null,8,null,6,null,4 }; // right-skewed binary tree
     if(rawData.length > 0){
-      sol.head.left = new TreeNode();
-      sol.queue.add(sol.head.left);
-      sol.constructTree(rawData, 0);
-      System.out.println(sol.inorderTraversal(sol.head.left));
+      head.left = new TreeNode();
+      queue.add(head.left);
+      sol.constructTree(queue, rawData);
+      System.out.println(sol.inorderTraversal(head.left));
     }
     else{
-      sol.head.left = null;
-      System.out.println(sol.inorderTraversal(sol.head.left));
+      head.left = null;
+      System.out.println(sol.inorderTraversal(head.left));
     }
   }
 
-  private void constructTree(Object[] rawData, int i){
-    int x = 0;
+  private void constructTree(LinkedList<TreeNode> queue, Object[] rawData){
+    int x = 0, i = 0;
     while(i < rawData.length){
       if(rawData[i] != null){
         TreeNode node = queue.remove();
