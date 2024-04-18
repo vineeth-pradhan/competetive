@@ -6,6 +6,7 @@
 
 package competetive;
 import java.util.LinkedList;
+import com.binarytreegenerator.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,9 +14,6 @@ class Solution {
   List<Integer> list = new ArrayList<Integer>();
 
   public static void main(String[] args) throws Exception{
-    TreeNode head = new TreeNode();
-    Solution sol = new Solution();
-    LinkedList<TreeNode> queue = new LinkedList<TreeNode>();
     // Object[] rawData = new Object[] {};
     // Object[] rawData = new Object[] {1};
     Object[] rawData = new Object[] { 1, null, 2, 3 }; // Degenerate binary tree
@@ -23,65 +21,17 @@ class Solution {
     // Object[] rawData = new Object[] { 10,4,17,1,5,16,21 }; // Full binary
     // Object[] rawData = new Object[] { 10,8,null,6,null,4,null }; // left-skewed binary tree
     // Object[] rawData = new Object[] { 10,null,8,null,6,null,4 }; // right-skewed binary tree
-    try {
-      if(rawData.length > 0){
-        head.left = new TreeNode();
-        queue.add(head.left);
-        sol.constructTree(queue, rawData);
-        System.out.println(sol.inorderTraversal(head.left));
-      }
-      else{
-        head.left = null;
-        System.out.println(sol.inorderTraversal(head.left));
-      }
-    }
-    catch(Exception e) { }
-    finally { System.out.println("Finished"); }
-  }
-
-  public void constructTree(LinkedList<TreeNode> queue, Object[] rawData){
-    int x = 0, i = 0;
-    while(i < rawData.length){
-      if(rawData[i] != null){
-        TreeNode node = queue.remove();
-        node.val = (Integer) rawData[i];
-        if(2*i+1-x < rawData.length && rawData[2*i+1-x] != null){
-          node.left = new TreeNode();
-          queue.add(node.left);
-        }
-        else if(2*i+1-x < rawData.length && rawData[2*i+1-x] == null){ node.left = null; }
-
-        if(2*i+2-x < rawData.length && rawData[2*i+2-x] != null){
-          node.right = new TreeNode();
-          queue.add(node.right);
-        }
-        else if(2*i+2-x < rawData.length && rawData[2*i+2-x] == null){ node.right = null; }
-      }
-      else{ x += 2; }
-      i++;
-    }
+    BinaryTree tree = new BinaryTree(rawData);
+    Solution sol = new Solution();
+    System.out.println(sol.inorderTraversal(tree.getRoot()));
   }
 
   public List<Integer> inorderTraversal(TreeNode root) {
     if(root != null){
-      inorderTraversal(root.left);
-      this.list.add(root.val);
-      inorderTraversal(root.right);
+      inorderTraversal(root.getLeft());
+      this.list.add(root.getVal());
+      inorderTraversal(root.getRight());
     }
     return list;
-  }
-}
-
-class TreeNode {
-  int val;
-  TreeNode left;
-  TreeNode right;
-
-  TreeNode() {}
-  TreeNode(int val) { this.val = val; }
-  TreeNode(int val, TreeNode left, TreeNode right) {
-    this.val = val;
-    this.left = left;
-    this.right = right;
   }
 }
