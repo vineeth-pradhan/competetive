@@ -30,7 +30,7 @@ dependencies {
 
     // This dependency is used by the application.
     implementation(libs.guava)
-    implementation("com:binarytreegenerator:0.0.8-SNAPSHOT")
+    implementation("com:binarytreegenerator:0.0.9-SNAPSHOT")
 }
 
 // Apply a specific Java toolchain to ease working on different environments.
