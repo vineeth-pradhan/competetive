@@ -10,15 +10,24 @@ class Solution {
           matrix[j][i] = tempValue;
       }
     }
-    for (int i = 0; i < matrix.length; i++) {
-      for (int j = 0; j < matrix[i].length / 2; j++) {
-        int index = matrix[i].length - 1 - j;
-        int tempValue = matrix[i][j];
-        matrix[i][j] = matrix[i][index];
-        matrix[i][index] = tempValue;
-      }
+    for(int i = 0; i < matrix.length; i++){
+        for(int j = 0; j < matrix[i].length / 2; j++){
+            int tempValue = matrix[i][j];
+            matrix[i][j] = matrix[i][matrix[i].length - j - 1];
+            matrix[i][matrix[i].length - j - 1] = tempValue;
+        }
     }
-    System.out.println(Arrays.deepToString(matrix));
+      System.out.println("Clockwise");
+      System.out.println(Arrays.deepToString(matrix));
+//      for(int i = 0; i < matrix.length / 2; i++){
+//          for(int j = 0; j < matrix[i].length; j++){
+//              int tempValue = matrix[i][j];
+//              matrix[i][j] = matrix[matrix[i].length - i - 1][j];
+//              matrix[matrix[i].length - i - 1][j] = tempValue;
+//          }
+//      }
+//      System.out.println("Anti-Clockwise");
+//      System.out.println(Arrays.deepToString(matrix));
   }
 
   public static void main(String[] args) {
