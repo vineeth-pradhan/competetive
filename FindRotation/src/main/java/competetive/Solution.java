@@ -30,8 +30,6 @@ class Solution {
             }
         }
         if(Arrays.deepEquals(mat, target)) {
-            System.out.println(Arrays.deepToString(mat));
-            System.out.println(Arrays.deepToString(target));
             fits = true;
         }
         return fits;
