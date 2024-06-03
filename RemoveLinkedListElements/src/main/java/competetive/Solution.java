@@ -11,6 +11,18 @@ class ListNode {
 
 class Solution {
     public ListNode removeElements(ListNode head, int val) {
+        ListNode node = head;
+        ListNode prev = new ListNode(val, head);
+        ListNode newHead = prev;
+        while(node != null) {
+            if(node.val != val){
+                prev.next = node;
+                prev = prev.next;
+            }
+            node = node.next;
+        }
+        prev.next = null;
+        return newHead.next;
     }
 
     private void constructLinkedList(int[] input, ListNode node, int i){
@@ -32,9 +44,12 @@ class Solution {
 
     public static void main(String[] args) {
         Solution solution = new Solution();
-        int[] inputArray = new int[] { 1,2,6,3,4,6,5 };
+        int[] inputArray = new int[] { 1,2,6,4 };
         ListNode head = new ListNode(inputArray[0]);
         solution.constructLinkedList(inputArray, head, 0);
         solution.printLinkedList(head);
+        ListNode newHead = solution.removeElements(head, 6);
+        System.out.println();
+        solution.printLinkedList(newHead);
     }
 }
