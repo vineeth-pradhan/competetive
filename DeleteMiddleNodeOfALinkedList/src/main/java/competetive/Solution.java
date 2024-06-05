@@ -1,6 +1,5 @@
 // https://leetcode.com/problems/delete-the-middle-node-of-a-linked-list/
 package competetive;
-import java.util.LinkedList;
 
 class ListNode {
     int val;
@@ -11,33 +10,18 @@ class ListNode {
 }
 
 class Solution {
-    int count = 0;
-    int length = 0;
-
     public ListNode deleteMiddle(ListNode head) {
-        helper(head);
-        ListNode node = head;
-        count = 0;
-        if(node.next == null){ head = null; }
-        while(count <= length/2 - 1){
-            node = node.next;
-            if(node.next == null){ head.next = null; }
-            if(count == length/2 - 1 && node != null && node.next != null){
-                node.val = node.next.val;
-                node.next = node.next.next;
-                break;
-            }
-            count++;
-        }
-        return head;
-    }
+        if(head == null || head.next == null){ return null; }
+        ListNode full = head.next.next;
+        ListNode half = head;
 
-    private void helper(ListNode node){
-        if(node != null){
-            count++;
-            helper(node.next);
+        while(full != null && full.next != null){
+            full = full.next.next;
+            half = half.next;
         }
-        else{ length = count; }
+
+        half.next = half.next.next;
+        return head;
     }
 
     private void constructLinkedList(int[] input, ListNode node, int i){
@@ -59,12 +43,12 @@ class Solution {
 
     public static void main(String[] args) {
         Solution solution = new Solution();
-        int[] inputArray = { 5,1 };
+        int[] inputArray = { 5 };
         ListNode head = new ListNode(inputArray[0]);
         solution.constructLinkedList(inputArray, head, 0);
         solution.printLinkedList(head);
         System.out.println();
-        solution.deleteMiddle(head);
+        head = solution.deleteMiddle(head);
         solution.printLinkedList(head);
     }
 }
