@@ -1,8 +1,5 @@
 // https://leetcode.com/problems/reorder-list/
 package competetive;
-
-import java.util.List;
-
 class ListNode {
     int val;
     ListNode next;
