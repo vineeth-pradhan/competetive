@@ -9,20 +9,9 @@ class ListNode {
     ListNode() {}
     ListNode(int val) { this.val = val; }
     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
-}
 
-class Solution {
-    public void reorderList(ListNode head) {
-        ListNode node = head;
-        ListNode reverse = reverseList(copyNode(head));
-        this.printLinkedList(head);
-        this.printLinkedList(reverse);
-        ListNode reorder = reorderHelper(head, reverse);
-        this.printLinkedList(reorder);
-    }
-
-    private ListNode copyNode(ListNode head){
-        ListNode node = head;
+    public ListNode copyNode(){
+        ListNode node = this;
         ListNode copy = new ListNode();
         ListNode newHead = copy;
         while(node != null){
@@ -33,16 +22,30 @@ class Solution {
         return newHead;
     }
 
-    private ListNode reorderHelper(ListNode a, ListNode b){
-        if(a.next != b.next){
-            ListNode tempA = a.next;
-            a.next = b;
-            ListNode tempB = b.next;
-            b.next = tempA;
-            if(tempA.val != tempB.val){ reorderHelper(tempA, tempB); }
-            else{ tempA.next = null; }
+    public void constructLinkedList(int[] input, ListNode node, int i){
+        if(i+1 < input.length){
+            ListNode next = new ListNode(input[i+1]);
+            node.next = next;
+            constructLinkedList(input, next, i+1);
         }
-        return a;
+    }
+
+    public ListNode reverseList(ListNode head){
+        ListNode node = head;
+        ListNode reverse = head;
+        if(node.next == null){}
+        else if(node != null){ reverse = reverseHelper(node, node.next, node); }
+        return reverse;
+    }
+
+    public void printLinkedList(ListNode head){
+        if (head != null) {
+            System.out.print(head.val);
+            if(head.next != null)
+                System.out.print(" -> ");
+            printLinkedList(head.next);
+        }
+        else{ System.out.println(); }
     }
 
     private ListNode reverseHelper(ListNode current, ListNode next, ListNode newHead){
@@ -55,41 +58,45 @@ class Solution {
         else{ newHead = current; }
         return newHead;
     }
+}
 
-    private ListNode reverseList(ListNode head){
-        ListNode node = head;
-        ListNode reverse = head;
-        if(node.next == null){}
-        else if(node != null){ reverse = reverseHelper(node, node.next, node); }
-        return reverse;
+class Solution {
+    public void reorderList(ListNode head) {
+        ListNode half = head;
+        ListNode full = head;
+        while(full != null && full.next != null){
+            full = full.next.next;
+            half = half.next;
+        }
+        ListNode reverse = half.reverseList(half);
+        head.printLinkedList(head);
+        reverse.printLinkedList(reverse);
+        ListNode reorder = reorderHelper(head, reverse);
+        reorder.printLinkedList(reorder);
     }
 
-    private void constructLinkedList(int[] input, ListNode node, int i){
-        if(i+1 < input.length){
-            ListNode next = new ListNode(input[i+1]);
-            node.next = next;
-            constructLinkedList(input, next, i+1);
+    private ListNode reorderHelper(ListNode a, ListNode b){
+        if(a != b){
+            ListNode tempA = a.next;
+            a.next = b;
+            if(b != null){
+                ListNode tempB = b.next;
+                b.next = tempA;
+                if(tempA != tempB){ reorderHelper(tempA, tempB); }
+                else{ tempA.next = null; }
+            }
         }
-    }
-
-    private void printLinkedList(ListNode head){
-        if (head != null) {
-            System.out.print(head.val);
-            if(head.next != null)
-                System.out.print(" -> ");
-            printLinkedList(head.next);
-        }
-        else{ System.out.println(); }
+        return a;
     }
 
     public static void main(String[] args) {
         Solution solution = new Solution();
-        int[] inputArray = { 1,2,3,4,5,6,7 };
+        int[] inputArray = { 1,2,3,4,5,6,7,8,9,10 };
 //        int[] inputArray = { 1,7,2,6,3,5,4 };
 //        int[] inputArray = { 1,2,3,4,5,6,7,8 };
 //        int[] inputArray = { 1,8,2,7,3,6,4,5 };
         ListNode head = new ListNode(inputArray[0]);
-        solution.constructLinkedList(inputArray, head, 0);
+        head.constructLinkedList(inputArray, head, 0);
         solution.reorderList(head);
     }
 }
