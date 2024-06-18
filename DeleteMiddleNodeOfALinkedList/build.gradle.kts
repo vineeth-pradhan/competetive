@@ -13,6 +13,13 @@ plugins {
 repositories {
     // Use Maven Central for resolving dependencies.
     mavenCentral()
+    maven {
+            url = uri("https://maven.pkg.github.com/vineeth-pradhan/listnode-java")
+            credentials {
+              username = project.findProperty("gpr.user") as String? ?: System.getenv("GITHUB_USERNAME")
+              password = project.findProperty("gpr.key") as String? ?: System.getenv("GITHUB_TOKEN")
+            }
+    }
 }
 
 dependencies {
@@ -23,6 +30,7 @@ dependencies {
 
     // This dependency is used by the application.
     implementation(libs.guava)
+    implementation("com:list:0.0.7-SNAPSHOT")
 }
 
 // Apply a specific Java toolchain to ease working on different environments.
