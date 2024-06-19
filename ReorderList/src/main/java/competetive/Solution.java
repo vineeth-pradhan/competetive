@@ -11,10 +11,8 @@ class Solution {
             half = half.getNext();
         }
         ListNode reverse = half.reverseList(half);
-        head.printLinkedList(head);
-        reverse.printLinkedList(reverse);
         ListNode reorder = reorderHelper(head, reverse);
-        reorder.printLinkedList(reorder);
+        System.out.println(ListNode.printLinkedList(reorder));
     }
 
     private ListNode reorderHelper(ListNode a, ListNode b){
@@ -40,6 +38,7 @@ class Solution {
 
         ListNode head = new ListNode(inputArray[0]);
         head.constructLinkedList(inputArray, head, 0);
+        System.out.println(ListNode.printLinkedList(head));
         solution.reorderList(head);
     }
 }

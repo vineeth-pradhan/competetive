@@ -28,9 +28,8 @@ class Solution {
         int[] inputArray = { 1,2,3,4,5,6 };
         ListNode head = new ListNode(inputArray[0]);
         head.constructLinkedList(inputArray, head, 0);
-        head.printLinkedList(head);
-        System.out.println();
+        System.out.println(head.printLinkedList(head));
         head = solution.removeNthFromEnd(head, 1);
-        head.printLinkedList(head);
+        System.out.println(head.printLinkedList(head));
     }
 }

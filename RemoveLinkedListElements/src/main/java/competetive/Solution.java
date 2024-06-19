@@ -23,9 +23,9 @@ class Solution {
         int[] inputArray = new int[] { 1,2,6,4 };
         ListNode head = new ListNode(inputArray[0]);
         head.constructLinkedList(inputArray, head, 0);
-        head.printLinkedList(head);
+        System.out.println(head.printLinkedList(head));
         ListNode newHead = solution.removeElements(head, 6);
         System.out.println();
-        newHead.printLinkedList(newHead);
+        System.out.println(head.printLinkedList(head));
     }
 }

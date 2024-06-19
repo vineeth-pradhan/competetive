@@ -19,12 +19,11 @@ class Solution {
 
     public static void main(String[] args) {
         Solution solution = new Solution();
-        int[] inputArray = { 5,2,3 };
+        int[] inputArray = { 5 };
         ListNode head = new ListNode(inputArray[0]);
         head.constructLinkedList(inputArray, head, 0);
-        head.printLinkedList(head);
-        System.out.println();
+        System.out.println(ListNode.printLinkedList(head));
         head = solution.deleteMiddle(head);
-        head.printLinkedList(head);
+        System.out.println(ListNode.printLinkedList(head));
     }
 }

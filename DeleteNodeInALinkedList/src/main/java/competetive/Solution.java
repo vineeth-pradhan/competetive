@@ -25,10 +25,10 @@ class Solution {
         int itemToBeDeleted = 5;
         ListNode head = new ListNode(inputArray[0]);
         head.constructLinkedList(inputArray, head, 0);
-        head.printLinkedList(head);
+        System.out.println(ListNode.printLinkedList(head));
         System.out.println(itemToBeDeleted);
         ListNode node = solution.getNode(head, itemToBeDeleted);
         solution.deleteNode(node);
-        head.printLinkedList(head);
+        System.out.println(ListNode.printLinkedList(head));
     }
 }

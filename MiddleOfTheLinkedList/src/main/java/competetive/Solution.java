@@ -15,11 +15,10 @@ class Solution {
 
     public static void main(String[] args) {
         Solution solution = new Solution();
-        int[] inputArray = { 1,2,3,4,5,6 };
+        int[] inputArray = { 1,2,3 };
         ListNode head = new ListNode(inputArray[0]);
         head.constructLinkedList(inputArray, head, 0);
-        head.printLinkedList(head);
-        System.out.println();
+        System.out.println(ListNode.printLinkedList(head));
         ListNode mid = solution.middleNode(head);
         System.out.println(mid.getVal());
     }
