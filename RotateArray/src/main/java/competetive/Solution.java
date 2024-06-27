@@ -7,37 +7,33 @@ class Solution {
     public void rotate(int[] nums, int k) {
         int r = k % nums.length;
         int start = nums.length - r;
-        int j = nums.length - 2 * r;
-        nums = rotateHelper(nums, k, start, j);
+        int j = 0;
+        nums = rotateHelper(nums, r, start, j);
         System.out.println(Arrays.toString(nums));
     }
 
     public int[] rotateHelper(int[] nums, int k, int start, int j){
         if(k == 0){ return nums; }
         for(int i = start; i < nums.length; i++){
-            if(j < start && j >= 0){
-                int temp = nums[i];
-                nums[i] = nums[j];
-                nums[j] = temp;
+            if(j < start){
+                int temp = nums[j];
+                nums[j] = nums[i];
+                if(j+k < nums.length) {
+                    nums[i] = nums[j+k];
+                    nums[j+k] = temp;
+                }
+                else{ nums[i] = temp; }
                 j++;
             }
         }
-        if(j > k){ return rotateHelper(nums, k, start - k, start - 2 * k); }
-        else {
-            int m = j + k - 1;
-            while(m < k){
-                int temp = nums[m];
-                nums[m] = nums[m+1];
-                nums[m+1] = temp;
-                m++;
-            }
-            return nums;
-        }
+        if(j < nums.length){
+            System.out.println(j);nums = rotateHelper(nums, k, nums.length - k, j + k); return nums; }
+        else{ return nums; }
     }
 
     public static void main(String[] args) {
         Solution sol = new Solution();
-        int[] inputArray = new int[] { 1,2,3,4,5,6 };
+        int[] inputArray = new int[] { 1,2,3,4,5,6,7,8,9,10,11 };
         System.out.println(Arrays.toString(inputArray));
         sol.rotate(inputArray, 4);
     }
