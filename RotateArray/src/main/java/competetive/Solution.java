@@ -1,40 +1,31 @@
-// https://leetcode.com/problems/rotate-array/
-package competetive;
+// https://leetcode.com/problems/rotate-array
 
+package competetive;
 import java.util.Arrays;
 
 class Solution {
     public void rotate(int[] nums, int k) {
-        int r = k % nums.length;
-        int start = nums.length - r;
-        int j = 0;
-        nums = rotateHelper(nums, r, start, j);
+        k %= nums.length;
+        nums = reverse(nums, 0, nums.length - 1);
+        nums = reverse(nums, 0, k-1);
+        nums = reverse(nums, k, nums.length - 1);
         System.out.println(Arrays.toString(nums));
     }
 
-    public int[] rotateHelper(int[] nums, int k, int start, int j){
-        if(k == 0){ return nums; }
-        for(int i = start; i < nums.length; i++){
-            if(j < start){
-                int temp = nums[j];
-                nums[j] = nums[i];
-                if(j+k < nums.length) {
-                    nums[i] = nums[j+k];
-                    nums[j+k] = temp;
-                }
-                else{ nums[i] = temp; }
-                j++;
-            }
+    public int[] reverse(int[] nums, int start, int end){
+        if(start < end){
+            int temp = nums[start];
+            nums[start] = nums[end];
+            nums[end] = temp;
+            nums = reverse(nums, start+1, end-1);
         }
-        if(j < nums.length){
-            System.out.println(j);nums = rotateHelper(nums, k, nums.length - k, j + k); return nums; }
-        else{ return nums; }
+        return nums;
     }
 
-    public static void main(String[] args) {
-        Solution sol = new Solution();
-        int[] inputArray = new int[] { 1,2,3,4,5,6,7,8,9,10,11 };
+    public static void main(String args[]){
+        Solution solution = new Solution();
+        int[] inputArray = new int[] { 1,2,3,4,5 };
         System.out.println(Arrays.toString(inputArray));
-        sol.rotate(inputArray, 4);
+        solution.rotate(inputArray, 3);
     }
 }
