@@ -3,49 +3,22 @@ import java.util.Arrays;
 
 class Solution {
   public String longestCommonPrefix(String[] strs) {
-    String lcp = "";
-    String c = "";
-    int i = 0;
-    try {
-      while(i <= 200) {
-        if(strs.length == 1){
-          return strs[0];
+    int i;
+    if(strs.length == 0){
+      return "";
+    }
+    for(i = 0; i < strs[0].length(); i++) {
+      for(int j = 1; j < strs.length; j++) {
+        if(i >= strs[j].length() || strs[0].charAt(i) != strs[j].charAt(i)) {
+          return strs[j].substring(0, i);
         }
-        for(int j = 0; j < strs.length; j++){
-          if(strs[j].equals("")) {
-            return lcp;
-          }
-          if(c.isEmpty()) {
-            c = Character.toString(strs[j].charAt(i));
-            continue;
-          }
-          else {
-            if(Character.toString(strs[j].charAt(i)).equals(c)) {
-              if( j == strs.length - 1) {
-                lcp += c;
-              }
-              continue;
-            }
-            else {
-              return lcp;
-            }
-          }
-        }
-        c = "";
-        i += 1;
       }
-      return lcp;
     }
-    catch(StringIndexOutOfBoundsException e){
-      return lcp;
-    }
+    return strs[0].substring(0,i);
   }
 
   public static void main(String[] args){
     var solution = new Solution();
     System.out.println(solution.longestCommonPrefix(new String[]{ "flower", "fleet", "flow" }));
-//    System.out.println(solution.longestCommonPrefix(new String[]{ "" }));
-//    System.out.println(solution.longestCommonPrefix(new String[]{ "a" }));
-//    System.out.println(solution.longestCommonPrefix(new String[]{ "ab", "ab", "abc" }));
   }
 }
