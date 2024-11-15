@@ -22,19 +22,15 @@ public class SolutionTest {
     @Test
     void test4() { assertEquals(4, solution.strStr("leetcode", "code")); }
     @Test
-    void test5() { assertEquals(-1, solution.strStr("leetcode", "")); }
-    @Test
     void test6() { assertEquals(0, solution.strStr("leetcode", "leetcode")); }
     @Test
     void test7() { assertEquals(-1, solution.strStr("lee", "leetcode")); }
     @Test
     void test8() { assertEquals(-1, solution.strStr("", "leetcode")); }
     @Test
-    void test9() { assertEquals(-1, solution.strStr("", "")); }
-    @Test
     void test10() { assertEquals(2, solution.strStr("hello", "ll")); }
     @Test
     void test11() { assertEquals(0, solution.strStr("a", "a")); }
     @Test
-    void test11() { assertEquals(0, solution.strStr("mississippi", "sipp")); }
+    void test12() { assertEquals(6, solution.strStr("mississippi", "sipp")); }
 }

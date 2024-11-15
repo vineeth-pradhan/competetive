@@ -12,30 +12,20 @@ class Solution {
      */
 
     public int strStr(String haystack, String needle) {
-        int found = -1;
         int lastIndex = needle.length() - 1;
         int firstIndex = 0;
-        if(haystack.isEmpty() || needle.isEmpty()) { return -1; }
-        if(haystack.equals(needle)) { return 0; }
-        for(int i = 0; i < haystack.length(); i++) {
+        for(int i = 0; i <= haystack.length() - needle.length(); i++) {
             if(
-                    firstIndex <= needle.length() - 1 &&
                     haystack.charAt(i) == needle.charAt(firstIndex) &&
                             i + lastIndex < haystack.length() &&
                             haystack.charAt(i + lastIndex) == needle.charAt(lastIndex)
             ) {
-                if(found == -1) {
-                    found = i;
+                if(haystack.substring(i, i + lastIndex + 1).equals(needle)){
+                    return i;
                 }
-                firstIndex++;
-                lastIndex--;
-            }
-            else if(found < 0){
-                firstIndex = 0;
-                lastIndex = needle.length() - 1;
             }
         }
-        return found;
+        return -1;
     }
 
     public static void main(String[] args) {
