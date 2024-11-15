@@ -47,4 +47,5 @@ include("LongestCommonPrefix")
 include("ValidParanthesis")
 include("MergeTwoLinkedList")
 include("NeedleInAHaystack")
+include("SearchInsertPosition")
 
