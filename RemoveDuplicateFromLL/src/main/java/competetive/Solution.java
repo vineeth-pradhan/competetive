@@ -2,23 +2,28 @@ package competetive;
 import com.list.*;
 
 class Solution {
-    public ListNode deleteDuplicates(ListNode first) {
-        ListNode head = new ListNode(0, first);
-        ListNode currentNode = first;
-        while(first != null) {
-            if(first.next != null && first.next.val != currentNode.val) {
-                currentNode.next = first.next;
-                currentNode = first;
+    public ListNode deleteDuplicates(ListNode head) {
+        if(head == null) { return null; }
+        ListNode temp = new ListNode(0, head);
+        ListNode next = head.next;
+        while(head != null && next != null) {
+            if(next.val == head.val){
+                head.next = null;
+                next = next.next;
             }
-            first = first.next;
+            else {
+                head.next = next;
+                head = next;
+                next = next.next;
+            }
         }
 
-        return head.next;
+        return temp.next;
     }
 
     public static void main(String[] args) {
         Solution solution = new Solution();
-        int[] inputArray = { 1, 1 };
+        int[] inputArray = { 1,1,1,1,1 };
         ListNode first = new ListNode(inputArray[0]);
         first.constructLinkedList(inputArray, first, 0);
         System.out.println(ListNode.printLinkedList(first));
